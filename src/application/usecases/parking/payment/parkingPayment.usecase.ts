@@ -1,0 +1,3 @@
+class ParkingPaymentUsecase {
+  execute: void;
+  };
