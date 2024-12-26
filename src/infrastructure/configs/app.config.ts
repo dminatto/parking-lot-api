@@ -1,54 +1,36 @@
-/*const express = require('express');
-const routes = require('../../presentation/routes/index.routes');
-
-module.exports.start = () => {
-
-    require("dotenv").config();
-
-    const app = express();
-    app.use(express.json());
-    app.use(
-        express.urlencoded({
-            extended: false,
-        }),
-    );
-
-    app.use(routes);
-
-    app.listen( process.env.PORT || 3000, () => console.log('Server ON'));
-
-}
-*/
-import express from 'express';
-import database from './../database/database.config';
-//import controller from './controller';
-import * as bodyparser from 'body-parser';
+import express from 'express'
+import database from './../database/database.config'
+import * as bodyparser from 'body-parser'
+import swaggerUi from 'swagger-ui-express'
 import routes from '../../presentation/routes/index.routes'
-require('dotenv').config()
+import dotenv from 'dotenv'
+import cors from 'cors'
 
+import swaggerOutput from './../configs/swagger_output.json'
 class App {
-    public app: express.Application;
-    private database: database;
- //   private controller: controller;
+  public app: express.Application
+  private database: database
 
+  constructor() {
+    dotenv.config()
+    this.app = express()
+    this.middleware()
+    this.database = new database()
+    this.database.createConnection()
+    this.routes()
+  }
 
-    constructor() {
+  middleware() {
+    this.app.use(bodyparser.json())
+    this.app.use(bodyparser.urlencoded({ extended: true }))
+    this.app.use(cors())
+  }
 
-        this.app = express();
-        this.middleware();
-        this.database = new database();
-        this.database.createConnection();
-        this.routes();
-    }
-
-    middleware() {
-        this.app.use(bodyparser.json());
-        this.app.use(bodyparser.urlencoded({extended: true}))
-    }
-
-    routes() {
-        this.app.use(routes);
-    }
+  routes() {
+    this.app.use(routes)
+    this.app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerOutput))
+  }
 }
 
-export default new App();
+export default new App()
+//ts-node src/infrastructure/configs/swagger.config.ts

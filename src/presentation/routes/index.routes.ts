@@ -1,4 +1,4 @@
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response } from 'express'
 
 const routes = Router()
 
@@ -10,6 +10,4 @@ routes.get('/parking/:plate', (req: Request, res: Response) => {
   res.json({ message: 'Wow! parking' + req.params.plate })
 })
 
-
-
-export default routes;
+export default routes
