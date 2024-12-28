@@ -1,7 +1,6 @@
 import * as mongoose from 'mongoose'
 
 const ParkingHistorySchema = new mongoose.Schema({
-  plate: { type: String },
   time: { type: Number },
   paid: { type: Boolean },
   left: { type: Boolean },

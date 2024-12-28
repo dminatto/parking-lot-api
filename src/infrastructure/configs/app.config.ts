@@ -33,4 +33,3 @@ class App {
 }
 
 export default new App()
-//ts-node src/infrastructure/configs/swagger.config.ts
