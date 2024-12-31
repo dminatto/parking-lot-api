@@ -1,5 +1,7 @@
+import ParkingInfoResponse from '../../dtos/parkingInfoResponse.dto'
+
 interface IParkingExitUsecase {
-  execute: (id: number) => Promise<boolean>
+  execute: (id: string) => Promise<ParkingInfoResponse>
 }
 
 export default IParkingExitUsecase
