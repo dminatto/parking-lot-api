@@ -4,8 +4,6 @@ import * as bodyparser from 'body-parser'
 import swaggerUi from 'swagger-ui-express'
 import routes from '../../presentation/routes/index.routes'
 import dotenv from 'dotenv'
-import cors from 'cors'
-
 import swaggerOutput from './../configs/swagger_output.json'
 class App {
   public app: express.Application
@@ -23,7 +21,7 @@ class App {
   middleware() {
     this.app.use(bodyparser.json())
     this.app.use(bodyparser.urlencoded({ extended: true }))
-    this.app.use(cors())
+    //this.app.use(cors())
   }
 
   routes() {

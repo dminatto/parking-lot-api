@@ -1,19 +1,18 @@
-import * as mongoose from 'mongoose';
+import * as mongoose from 'mongoose'
 
-class Database{
+class Database {
+  private dbUrl: string = process.env.DB_CONN_STRING as string
 
-    private dbUrl: string = process.env.DB_CONN_STRING as string;
+  constructor() {}
 
-    constructor(){}
-
-    async createConnection(){
-      try {
-        await mongoose.connect(this.dbUrl);
-        console.log("Connected to the db");
-      } catch (err) {
-          console.error("Failed to connect to the db", err);
-      }
+  async createConnection() {
+    try {
+      await mongoose.connect(this.dbUrl)
+      console.log('Connected to the db')
+    } catch (err) {
+      console.error('Failed to connect to the db', err)
     }
+  }
 }
 
-export default Database;
+export default Database
