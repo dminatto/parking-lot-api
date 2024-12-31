@@ -1,6 +1,5 @@
-import ParkingListResponse, {
-  ParkingListResponseData
-} from '../../../../application/dtos/parkingListResponse.dto'
+import ParkingInfoResponse from '../../../../application/dtos/parkingInfoResponse.dto'
+import ParkingListResponse from '../../../../application/dtos/parkingListResponse.dto'
 import IParkingRepository from '../../../../application/interfaces/repositories/parking.interface'
 import IParkingListUsecase from '../../../../application/interfaces/usecases/parkingList.interface'
 import mapper from '../../../../infrastructure/mappers/index.mapper'
@@ -25,7 +24,7 @@ class ParkingListUsecase implements IParkingListUsecase {
     response.data = await mapper.mapArrayAsync(
       result,
       ParkingEntity,
-      ParkingListResponseData
+      ParkingInfoResponse
     )
     return response
   }
