@@ -1,4 +1,7 @@
 import swaggerAutogen from 'swagger-autogen'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const doc = {
   info: {
@@ -8,7 +11,7 @@ const doc = {
   },
   servers: [
     {
-      url: `http://localhost:2400`,
+      url: `${process.env.API_URL}`,
       description: ''
     }
   ],
@@ -16,6 +19,29 @@ const doc = {
     schemas: {
       parkingCreateRequest: {
         plate: 'string'
+      },
+      parkingCreateResponse: {
+        id: 'string',
+        plate: 'string',
+        entranceDate: 'date'
+      },
+      parkingInfoResponse: {
+        id: 'string',
+        plate: 'string',
+        time: 'string',
+        paid: 'boolean',
+        left: 'boolean'
+      },
+      parkingListResponse: {
+        data: [
+          {
+            id: 'string',
+            plate: 'string',
+            time: 'string',
+            paid: 'boolean',
+            left: 'boolean'
+          }
+        ]
       }
     }
   }

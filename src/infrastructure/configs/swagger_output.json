@@ -14,6 +14,10 @@
   "paths": {
     "/healthcheck": {
       "get": {
+        "tags": [
+          "Healthcheck"
+        ],
+        "summary": "runs healthcheck for api",
         "description": "",
         "responses": {
           "200": {
@@ -24,7 +28,11 @@
     },
     "/parking/{plate}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Parking"
+        ],
+        "summary": "List parking entrances by plate",
+        "description": "This endpoint will list all entrance registers in the parking lot",
         "parameters": [
           {
             "name": "plate",
@@ -37,7 +45,17 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Return data for parking",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/parkingListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
           }
         }
       }
@@ -51,7 +69,14 @@
         "description": "This endpoint will create a entrance in the parking lot",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Return the initial data for parking",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/parkingCreateResponse"
+                }
+              }
+            }
           },
           "400": {
             "description": "Bad Request"
@@ -71,27 +96,11 @@
     },
     "/parking/{id}/out": {
       "put": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
+        "tags": [
+          "Parking"
         ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/parking/{id}/pay": {
-      "put": {
-        "description": "",
+        "summary": "Left parking lot",
+        "description": "This endpoint will register the exit in the parking lot",
         "parameters": [
           {
             "name": "id",
@@ -104,7 +113,51 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Return the data for parking",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/parkingInfoResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/parking/{id}/pay": {
+      "put": {
+        "tags": [
+          "Parking"
+        ],
+        "summary": "Left parking lot",
+        "description": "This endpoint will pay the parking lot",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return the data for parking",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/parkingInfoResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
           }
         }
       }
@@ -118,6 +171,81 @@
           "plate": {
             "type": "string",
             "example": "string"
+          }
+        }
+      },
+      "parkingCreateResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "string"
+          },
+          "plate": {
+            "type": "string",
+            "example": "string"
+          },
+          "entranceDate": {
+            "type": "string",
+            "example": "date"
+          }
+        }
+      },
+      "parkingInfoResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "string"
+          },
+          "plate": {
+            "type": "string",
+            "example": "string"
+          },
+          "time": {
+            "type": "string",
+            "example": "string"
+          },
+          "paid": {
+            "type": "string",
+            "example": "boolean"
+          },
+          "left": {
+            "type": "string",
+            "example": "boolean"
+          }
+        }
+      },
+      "parkingListResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "plate": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "time": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "paid": {
+                  "type": "string",
+                  "example": "boolean"
+                },
+                "left": {
+                  "type": "string",
+                  "example": "boolean"
+                }
+              }
+            }
           }
         }
       }

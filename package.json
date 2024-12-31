@@ -7,6 +7,7 @@
     "start:dev": "nodemon ./node_modules/.bin/ts-node ./index",
     "build": "tsc",
     "test": "jest --coverage",
+    "swagger": "npx ts-node src/infrastructure/configs/swagger.config.ts",
     "lint": "eslint --ext .js,.ts .",
     "format": "npx prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\""
   },
