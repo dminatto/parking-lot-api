@@ -7,8 +7,10 @@ class Database {
 
   async createConnection() {
     try {
-      await mongoose.connect(this.dbUrl)
-      console.log('Connected to the db')
+      if (process.env.NODE_ENV !== 'test') {
+        await mongoose.connect(this.dbUrl)
+        console.log('Connected to the db')
+      }
     } catch (err) {
       console.error('Failed to connect to the db', err)
     }
