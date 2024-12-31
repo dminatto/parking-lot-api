@@ -1,5 +1,7 @@
+import ParkingInfoResponse from '../../dtos/parkingInfoResponse.dto'
+
 interface IParkingPaymentUsecase {
-  execute: (id: number) => void
+  execute: (id: string) => Promise<ParkingInfoResponse>
 }
 
 export default IParkingPaymentUsecase
