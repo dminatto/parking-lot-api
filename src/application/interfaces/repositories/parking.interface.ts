@@ -5,6 +5,7 @@ interface IParkingRepository {
   list: (plate: string, page: number, limit: number) => Promise<ParkingEntity[]>
   create: (item: ParkingCreateRequest) => Promise<ParkingEntity>
   update: (_id: string, item: ParkingUpdateRequest) => Promise<ParkingEntity>
+  findById: (_id: string) => Promise<ParkingEntity>
 }
 
 export default IParkingRepository

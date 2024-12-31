@@ -21,7 +21,7 @@ class ParkingRepository implements IParkingRepository {
     var data = await Parking.find({ plate })
       .skip((page - 1) * limit)
       .limit(limit)
-    console.log('data', data)
+
     return mapper.mapArrayAsync(data, Parking, ParkingEntity)
   }
 
@@ -34,6 +34,12 @@ class ParkingRepository implements IParkingRepository {
       { $set: { ...item } },
       { new: true }
     )
+
+    return mapper.mapAsync(data, Parking, ParkingEntity)
+  }
+
+  async findById(_id: string): Promise<ParkingEntity> {
+    var data = await Parking.findById(_id)
 
     return mapper.mapAsync(data, Parking, ParkingEntity)
   }
