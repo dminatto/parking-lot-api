@@ -3,4 +3,5 @@ import ParkingInfoResponse from './parkingInfoResponse.dto'
 
 export default class ParkingListResponse {
   data!: ParkingInfoResponse[]
+  page!: number
 }

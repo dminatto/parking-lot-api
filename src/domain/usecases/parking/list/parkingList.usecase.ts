@@ -13,14 +13,21 @@ class ParkingListUsecase implements IParkingListUsecase {
     this.parkingRepository = new ParkingRepository()
   }
 
-  async execute(plate: string): Promise<ParkingListResponse> {
-    const result = await this.parkingRepository.list(plate)
+  async execute(
+    plate: string,
+    page?: number,
+    limit?: number
+  ): Promise<ParkingListResponse> {
+    const _page = page ?? 1
+    const _limit = limit ?? 10
+    const result = await this.parkingRepository.list(plate, _page, _limit)
 
     /*  if(result === null || result typeof ParkingEntity){
 
     }*/
-
+    console.log('result', result)
     var response = new ParkingListResponse()
+    response.page = _page
     response.data = await mapper.mapArrayAsync(
       result,
       ParkingEntity,

@@ -29,9 +29,9 @@ class ParkingController {
       .catch((err) => res.status(400).json({ result: err }))
   }
 
-  list(plate: string, res: Response) {
+  list(plate: string, res: Response, page?: number, limit?: number) {
     return this.parkingListUsecase
-      .execute(plate)
+      .execute(plate, page, limit)
       .then((result) => res.status(200).json({ result }))
       .catch((err) => res.status(400).json({ result: err }))
   }

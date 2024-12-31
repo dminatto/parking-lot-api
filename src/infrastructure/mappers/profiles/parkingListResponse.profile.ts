@@ -1,12 +1,13 @@
 import { Mapper, createMap, forMember, mapFrom } from '@automapper/core'
 import ParkingDto from '../../../domain/entities/parking.entity'
-import { ParkingListResponseData } from '../../../application/dtos/parkingListResponse.dto'
+import ParkingInfoResponse from '../../../application/dtos/parkingInfoResponse.dto'
+import dateToMinutes from '../../utils/date.utils'
 
 export default function ParkingListResponseProfile(mapper: Mapper) {
   createMap(
     mapper,
     ParkingDto,
-    ParkingListResponseData,
+    ParkingInfoResponse,
     forMember(
       (d) => d.plate,
       mapFrom((s) => s.plate)
@@ -21,17 +22,9 @@ export default function ParkingListResponseProfile(mapper: Mapper) {
     ),
     forMember(
       (d) => d.time,
-      mapFrom((s) => diffDate(s.entranceDate))
+      mapFrom((s) =>
+        s.entranceDate ? dateToMinutes(s.entranceDate, s?.exitDate) : null
+      )
     )
   )
-}
-
-//todo: REFACTOR
-
-function diffDate(entrance: Date, exit?: Date) {
-  var timeLimit = exit ?? new Date()
-
-  var diff = Math.abs(entrance.getTime() - timeLimit.getTime())
-  var minutes = Math.floor(diff / 1000 / 60)
-  return minutes + ' minutes'
 }

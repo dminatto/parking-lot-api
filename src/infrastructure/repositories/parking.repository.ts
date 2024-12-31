@@ -13,8 +13,15 @@ class ParkingRepository implements IParkingRepository {
     return mapper.mapAsync(data, Parking, ParkingEntity)
   }
 
-  async list(plate: string): Promise<ParkingEntity[]> {
+  async list(
+    plate: string,
+    page: number,
+    limit: number
+  ): Promise<ParkingEntity[]> {
     var data = await Parking.find({ plate })
+      .skip((page - 1) * limit)
+      .limit(limit)
+    console.log('data', data)
     return mapper.mapArrayAsync(data, Parking, ParkingEntity)
   }
 
@@ -29,10 +36,6 @@ class ParkingRepository implements IParkingRepository {
     )
 
     return mapper.mapAsync(data, Parking, ParkingEntity)
-  }
-
-  delete(_id: number, callback: (error: any, result: any) => void): void {
-    Parking.findByIdAndDelete(_id, callback)
   }
 }
 

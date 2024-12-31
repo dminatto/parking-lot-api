@@ -18,10 +18,23 @@ routes.get('/healthcheck', (req: Request, res: Response) => {
   res.json({ message: 'Healthcheck running' })
 })
 routes.get('/parking/:plate', (req: Request, res: Response) => {
+  //
   /*
   #swagger.tags = ['Parking']
   #swagger.summary = 'List parking entrances by plate'
   #swagger.description = 'This endpoint will list all entrance registers in the parking lot'
+  #swagger.parameters['page'] = {
+                in: 'query',
+                description: 'page',
+                type: 'number',
+                required: 'false',
+            }
+#swagger.parameters['limit'] = {
+                in: 'query',
+                description: 'Limit per page',
+                type: 'number',
+                required: 'false',
+            }
   #swagger.responses[200] = {
                   description: "Return data for parking",
                   content: {
@@ -34,7 +47,10 @@ routes.get('/parking/:plate', (req: Request, res: Response) => {
               }
 */
   var plate = req.params.plate as unknown as string
-  controller.list(plate, res)
+  var page = req.query.page as unknown as number
+  var limit = req.query.limit as unknown as number
+
+  controller.list(plate, res, page, limit)
 })
 
 routes.post('/parking', (req: Request, res: Response) => {
