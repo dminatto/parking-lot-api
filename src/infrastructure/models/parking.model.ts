@@ -1,18 +1,29 @@
-import * as mongoose from 'mongoose'
+import { AutoMap } from '@automapper/classes'
 
-const ParkingHistorySchema = new mongoose.Schema({
-  time: { type: Number },
+import moongose, { Document, Schema } from 'mongoose'
+
+export class Parking extends Document {
+  @AutoMap()
+  _id!: string
+
+  @AutoMap()
+  plate!: string
+
+  @AutoMap()
+  paid!: boolean
+
+  @AutoMap()
+  entranceDate!: Date
+
+  @AutoMap()
+  exitDate!: Date
+}
+
+const ParkingSchema = new Schema<Parking>({
+  plate: { type: String, required: true },
   paid: { type: Boolean },
-  left: { type: Boolean },
-  createdDate: { type: Date, default: Date.now },
-  updatedDate: { type: Date }
+  entranceDate: { type: Date, default: Date.now },
+  exitDate: { type: Date }
 })
 
-const ParkingSchema = new mongoose.Schema({
-  plate: { type: String },
-  history: { type: [ParkingHistorySchema], default: [] },
-  createdDate: { type: Date, default: Date.now },
-  updatedDate: { type: Date }
-})
-
-export default mongoose.model('Parking', ParkingSchema)
+export default moongose.model<Parking>('Parking', ParkingSchema)
