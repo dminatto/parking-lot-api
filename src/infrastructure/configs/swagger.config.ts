@@ -42,6 +42,10 @@ const doc = {
             left: 'boolean'
           }
         ]
+      },
+      errorResponse: {
+        name: 'string',
+        message: 'string'
       }
     }
   }

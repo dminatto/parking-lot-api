@@ -45,6 +45,16 @@ routes.get('/parking/:plate', (req: Request, res: Response) => {
                       }
                   }
               }
+  #swagger.responses[500] = {
+                  description: "Internal Server Error",
+                  content: {
+                      "application/json": {
+                          schema:{
+                              $ref: "#/components/schemas/errorResponse"
+                          }
+                      }
+                  }
+              }
 */
   var plate = req.params.plate as unknown as string
   var page = req.query.page as unknown as number
@@ -78,6 +88,16 @@ routes.post('/parking', (req: Request, res: Response) => {
                       }
                   }
               }
+  #swagger.responses[500] = {
+                  description: "Internal Server Error",
+                  content: {
+                      "application/json": {
+                          schema:{
+                              $ref: "#/components/schemas/errorResponse"
+                          }
+                      }
+                  }
+              }
 */
   var body = req.body as unknown as ParkingCreateRequest
   controller.create(body, res)
@@ -94,6 +114,36 @@ routes.put('/parking/:id/out', (req: Request, res: Response) => {
                       "application/json": {
                           schema:{
                               $ref: "#/components/schemas/parkingInfoResponse"
+                          }
+                      }
+                  }
+              }
+  #swagger.responses[402] = {
+                  description: "Parking fee has not been paid",
+                  content: {
+                      "application/json": {
+                          schema:{
+                              $ref: "#/components/schemas/errorResponse"
+                          }
+                      }
+                  }
+              }
+  #swagger.responses[404] = {
+                  description: "Parking record not found",
+                  content: {
+                      "application/json": {
+                          schema:{
+                              $ref: "#/components/schemas/errorResponse"
+                          }
+                      }
+                  }
+              }
+  #swagger.responses[500] = {
+                  description: "Internal Server Error",
+                  content: {
+                      "application/json": {
+                          schema:{
+                              $ref: "#/components/schemas/errorResponse"
                           }
                       }
                   }
@@ -115,6 +165,36 @@ routes.put('/parking/:id/pay', (req: Request, res: Response) => {
                       "application/json": {
                           schema:{
                               $ref: "#/components/schemas/parkingInfoResponse"
+                          }
+                      }
+                  }
+              }
+  #swagger.responses[400] = {
+                  description: "Parking fee has already been paid",
+                  content: {
+                      "application/json": {
+                          schema:{
+                              $ref: "#/components/schemas/errorResponse"
+                          }
+                      }
+                  }
+              }
+  #swagger.responses[404] = {
+                  description: "Parking record not found",
+                  content: {
+                      "application/json": {
+                          schema:{
+                              $ref: "#/components/schemas/errorResponse"
+                          }
+                      }
+                  }
+              }
+  #swagger.responses[500] = {
+                  description: "Internal Server Error",
+                  content: {
+                      "application/json": {
+                          schema:{
+                              $ref: "#/components/schemas/errorResponse"
                           }
                       }
                   }
