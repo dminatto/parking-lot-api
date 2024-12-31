@@ -25,14 +25,28 @@ class ParkingController {
   create(data: ParkingCreateRequest, res: Response) {
     return this.parkingEntranceUsecase
       .execute(data)
-      .then((a) => res.status(200).json({ result: a }))
+      .then((result) => res.status(200).json({ result }))
       .catch((err) => res.status(400).json({ result: err }))
   }
 
   list(plate: string, res: Response) {
     return this.parkingListUsecase
       .execute(plate)
-      .then((crushs) => res.status(200).json({ result: crushs }))
+      .then((result) => res.status(200).json({ result }))
+      .catch((err) => res.status(400).json({ result: err }))
+  }
+
+  exit(id: string, res: Response) {
+    return this.parkingExitUsecase
+      .execute(id)
+      .then((result) => res.status(200).json({ result }))
+      .catch((err) => res.status(400).json({ result: err }))
+  }
+
+  payment(id: string, res: Response) {
+    return this.parkingPaymentUsecase
+      .execute(id)
+      .then((result) => res.status(200).json({ result }))
       .catch((err) => res.status(400).json({ result: err }))
   }
 }

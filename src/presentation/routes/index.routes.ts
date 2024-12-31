@@ -36,12 +36,13 @@ routes.post('/parking', (req: Request, res: Response) => {
 })
 
 routes.put('/parking/:id/out', (req: Request, res: Response) => {
-  var id = req.params.id as unknown as number
-  // controller.exit(id, res)
+  var id = req.params.id as unknown as string
+  controller.exit(id, res)
 })
 
 routes.put('/parking/:id/pay', (req: Request, res: Response) => {
-  res.json({ message: 'Wow! parking pay' })
+  var id = req.params.id as unknown as string
+  controller.payment(id, res)
 })
 
 export default routes
