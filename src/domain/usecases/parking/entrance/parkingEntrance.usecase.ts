@@ -14,14 +14,8 @@ class ParkingEntranceUsecase implements IParkingEntranceUsecase {
   }
 
   async execute(model: ParkingCreateRequest): Promise<ParkingCreateResponse> {
-    try {
-      const result = await this.parkingRepository.create(model)
-
-      return mapper.mapAsync(result, ParkingEntity, ParkingCreateResponse)
-    } catch (err: any) {
-      console.error(`Error: ${err.message}`)
-      throw new Error('Method not implemented.')
-    }
+    const result = await this.parkingRepository.create(model)
+    return mapper.mapAsync(result, ParkingEntity, ParkingCreateResponse)
   }
 }
 
