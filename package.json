@@ -6,9 +6,9 @@
     "start": "./node_modules/.bin/ts-node ./index",
     "start:dev": "nodemon ./node_modules/.bin/ts-node ./index",
     "build": "tsc",
-    "test": "jest",
+    "test": "jest --coverage",
     "lint": "eslint --ext .js,.ts .",
-    "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\""
+    "format": "npx prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\""
   },
   "author": "",
   "license": "ISC",
@@ -27,7 +27,9 @@
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
+    "@jest/globals": "^29.7.0",
     "@types/express": "^5.0.0",
+    "@types/jest": "^29.5.14",
     "@types/node": "^22.10.2",
     "@typescript-eslint/eslint-plugin": "^8.18.2",
     "@typescript-eslint/parser": "^8.18.2",
