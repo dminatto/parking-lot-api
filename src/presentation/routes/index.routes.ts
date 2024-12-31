@@ -45,6 +45,16 @@ routes.get('/parking/:plate', (req: Request, res: Response) => {
                       }
                   }
               }
+  #swagger.responses[404] = {
+                  description: "Parking records not found",
+                  content: {
+                      "application/json": {
+                          schema:{
+                              $ref: "#/components/schemas/errorResponse"
+                          }
+                      }
+                  }
+              }
   #swagger.responses[500] = {
                   description: "Internal Server Error",
                   content: {
