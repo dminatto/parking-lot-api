@@ -42,7 +42,7 @@ describe('ParkingListUsecase', () => {
 
     const result = await parkingListUsecase.execute(plate)
 
-    expect(parkingRepository.list).toHaveBeenCalledWith(plate)
+    expect(parkingRepository.list).toHaveBeenCalledWith(plate, 1, 10)
 
     expect(result).toBeInstanceOf(ParkingListResponse)
   })

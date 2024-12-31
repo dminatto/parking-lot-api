@@ -24,12 +24,15 @@ describe('ParkingPaymentUsecase', () => {
   })
 
   it('should update the parking record with paiyment and return ParkingInfoResponse', async () => {
+    const mockId = '12345'
+
     const mockMappedResponse = new ParkingInfoResponse()
     const mockParkingEntity = new ParkingEntity()
+    mockParkingEntity._id = mockId
+    mockParkingEntity.paid = false
 
+    parkingRepository.findById.mockResolvedValue(mockParkingEntity)
     parkingRepository.update.mockResolvedValue(mockParkingEntity)
-
-    const mockId = '12345'
 
     jest.mock('./../../../src/infrastructure/mappers/index.mapper', () => ({
       mapAsync: () => mockMappedResponse
