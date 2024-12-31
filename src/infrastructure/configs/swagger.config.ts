@@ -8,15 +8,14 @@ const doc = {
   },
   servers: [
     {
-      url: 'http://localhost:8080',
+      url: `http://localhost:2400`,
       description: ''
     }
   ],
   components: {
-    securitySchemes: {
-      bearerAuth: {
-        type: 'http',
-        scheme: 'bearer'
+    schemas: {
+      parkingCreateRequest: {
+        plate: 'string'
       }
     }
   }

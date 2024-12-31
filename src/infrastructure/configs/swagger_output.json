@@ -2,17 +2,17 @@
   "openapi": "3.0.0",
   "info": {
     "version": "v1.0.0",
-    "title": "Swagger Demo Project",
+    "title": "Parking API",
     "description": "Implementation of Swagger with TypeScript"
   },
   "servers": [
     {
-      "url": "http://localhost:8080",
+      "url": "http://localhost:2400",
       "description": ""
     }
   ],
   "paths": {
-    "/": {
+    "/healthcheck": {
       "get": {
         "description": "",
         "responses": {
@@ -41,13 +41,85 @@
           }
         }
       }
+    },
+    "/parking": {
+      "post": {
+        "tags": [
+          "Parking"
+        ],
+        "summary": "Create a entrance",
+        "description": "This endpoint will create a entrance in the parking lot",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/parkingCreateRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/parking/{id}/out": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/parking/{id}/pay": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
+    "schemas": {
+      "parkingCreateRequest": {
+        "type": "object",
+        "properties": {
+          "plate": {
+            "type": "string",
+            "example": "string"
+          }
+        }
       }
     }
   }
