@@ -1,33 +1,37 @@
 version: '3.8'
 
 services:
-    api:
-        container_name: parking-lot-api
-        build:
-            context: .
-            dockerfile: ./Dockerfile
-        command: npm run start:dev
-        ports:
-            - '${PORT:-2400}:2400'
-        networks:
-            - parking-lot-net
-        extra_hosts:
-            - 'host.docker.internal:host-gateway'
-        volumes:
-            - .:/app
-            - /app/node_modules
-        restart: unless-stopped
-    mongodb:
-        container_name: parking-lot-mongodb
-        image : mongo
-        environment:
-            - PUID=1000
-            - PGID=1000
-        volumes:
-          - /home/barry/mongodb/database:/data/db
-        ports:
-            - '${DB_PORT:-27017}:27017'
-        restart: unless-stopped
+  api:
+    container_name: parking-lot-api
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: npm run start:dev
+    ports:
+      - '${PORT:-2400}:2400'
+    networks:
+      - parking-lot-net
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    volumes:
+      - .:/app
+      - /app/node_modules
+    restart: unless-stopped
+  mongodb:
+    container_name: parking-lot-mongodb
+    image: mongo
+    environment:
+      MONGODB_ROOT_PASSWORD: root
+      MONGODB_REPLICA_SET_MODE: primary
+      MONGODB_REPLICA_SET_KEY: 123456
+      MONGODB_DATABASE: parkinglot
+    volumes:
+      - /home/barry/mongodb/database:/data/db
+    ports:
+      - '${DB_PORT:-27017}:27017'
+    networks:
+      - parking-lot-net
+    restart: unless-stopped
 networks:
-    parking-lot-net:
-        driver: bridge
+  parking-lot-net:
+    driver: bridge
