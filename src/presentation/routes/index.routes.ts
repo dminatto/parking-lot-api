@@ -6,6 +6,10 @@ const routes = Router()
 
 const controller = new ParkingController()
 
+routes.get('/', function (req, res) {
+  res.redirect('/docs')
+})
+
 routes.get('/healthcheck', (req: Request, res: Response) => {
   /*
   #swagger.tags = ['Healthcheck']
