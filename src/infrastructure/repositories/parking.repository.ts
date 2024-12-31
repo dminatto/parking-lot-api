@@ -1,21 +1,25 @@
+import mapper from './../mappers/index.mapper'
 import * as mongoose from 'mongoose'
 import Parking from '../models/parking.model'
-import ParkingDto from '../../application/interfaces/dtos/parking.dto'
+import ParkingEntity from '../../domain/entities/parking.entity'
+import ParkingCreateRequest from '../../application/dtos/parkingCreateRequest.dto'
 import IParkingRepository from '../../application/interfaces/repositories/parking.interface'
 
 class ParkingRepository implements IParkingRepository {
-  create(item: ParkingDto, callback: (error: any, result: any) => void): void {
+  async create(item: ParkingCreateRequest): Promise<ParkingEntity> {
     const newParking = new Parking(item)
     newParking.save()
+    return mapper.mapAsync(newParking, Parking, ParkingEntity)
   }
 
-  list(): Promise<any> {
-    return Parking.find({})
+  async list(plate: string): Promise<ParkingEntity[]> {
+    const data = await Parking.find({ plate })
+    return mapper.mapArrayAsync(data, Parking, ParkingEntity)
   }
 
   update(
     _id: number,
-    item: ParkingDto,
+    item: ParkingEntity,
     callback: (error: any, result: any) => void
   ): void {
     Parking.findByIdAndUpdate(

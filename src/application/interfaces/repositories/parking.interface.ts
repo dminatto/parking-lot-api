@@ -1,14 +1,11 @@
-import ParkingDto from '../dtos/parking.dto'
-
+import ParkingCreateRequest from '../../dtos/parkingCreateRequest.dto'
+import ParkingEntity from '../../../domain/entities/parking.entity'
 interface IParkingRepository {
-  list: () => Promise<ParkingDto>
-  create: (
-    item: ParkingDto,
-    callback: (error: any, result: any) => void
-  ) => void
+  list: (plate: string) => Promise<ParkingEntity[]>
+  create: (item: ParkingCreateRequest) => Promise<ParkingEntity>
   update: (
     _id: number,
-    item: ParkingDto,
+    item: ParkingEntity,
     callback: (error: any, result: any) => void
   ) => void
   delete: (_id: number, callback: (error: any, result: any) => void) => void
